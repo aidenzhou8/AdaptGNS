@@ -2,7 +2,7 @@
 
 Code release for *Adaptive Interaction Graphs for Particle Simulation* (Aiden
 Zhou, Yale University; CPSC 4830 final project, Spring 2026).
-See `[CPSC_4830_Final_Report.pdf](CPSC_4830_Final_Report.pdf)` for the
+See `[CPSC_4830_Paper.pdf](CPSC_4830_Paper.pdf)` for the
 write-up.
 
 **TL;DR.** A standard GNS ([Sanchez-Gonzalez et al., 2020](https://arxiv.org/abs/2002.09405))
