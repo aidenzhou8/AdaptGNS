@@ -1,48 +1,45 @@
 # AdaptGNS: Adaptive Interaction Graphs for Particle Simulation
 
-Code release for *Adaptive Interaction Graphs for Particle Simulation* (Aiden
-Zhou, Yale University; CPSC 4830 final project, Spring 2026).
-See `[CPSC_4830_Paper.pdf](CPSC_4830_Paper.pdf)` for the
-write-up.
+Code release for *Adaptive Interaction Graphs for Particle Simulation*. See `CPSC_4830_Paper.pdf` for the project report.
 
-**TL;DR.** A standard GNS ([Sanchez-Gonzalez et al., 2020](https://arxiv.org/abs/2002.09405))
+A standard GNS ([Sanchez-Gonzalez et al., 2020](https://arxiv.org/abs/2002.09405))
 is augmented with a per-particle variance head trained jointly under a
 heteroscedastic Gaussian NLL. At inference time, particles whose predicted
-variance is above the 70th percentile receive an enlarged neighbourhood
+variance is above the 70th percentile receive an expanded neighbourhood
 (`radius_factor = 1.267`); the rest keep the default `r = 0.015`. The
 variance estimate from the previous step drives the current step's graph,
 so the cost is one forward pass per step. AdaptGNS achieves a strict
-Pareto improvement on WaterDrop (20% fewer edges than fixed `k=5`, lower
+Pareto improvement on WaterDrop (20% fewer edges than fixed `k = 5`, lower
 MSE@200) and a modest gain on Sand.
 
 ## Repository layout
 
 ```
 AdaptiveGNS/
-├── CPSC_4830_Final_Report.tex     # paper source
+├── CPSC_4830_Paper.pdf            # project report
 ├── README.md                      # this file
 ├── .gitignore
 ├── adaptive-gns/                  # fork of geoelements/gns with VarianceHead + adaptive loop
-│   ├── gns/                       # core simulator (cited in the paper)
-│   │   ├── graph_network.py       # VarianceHead lives here
-│   │   ├── learned_simulator.py   # predict_positions_adaptive lives here
-│   │   ├── train.py               # NLL loss + adaptive rollout entry points
+│   ├── gns/                       # core simulator
+│   │   ├── graph_network.py       # includes VarianceHead
+│   │   ├── learned_simulator.py   # includes predict_positions_adaptive
+│   │   ├── train.py               # NLL loss + adaptive loop entry points
 │   │   └── ...
-│   ├── scripts/                   # evaluation, calibration, plotting
+│   ├── scripts/                   # evaluation, calibration, plots
 │   ├── utils/                     # dataset converters (HDF5/TFRecord -> npz)
 │   ├── slurm_scripts/             # upstream SLURM templates
 │   ├── test/                      # pytest suite (inherited from upstream)
 │   ├── requirements.txt
-│   ├── references.bib             # upstream's bib (kept for attribution)
+│   ├── references.bib             # upstream's bib
 │   └── license.md                 # upstream MIT license
-├── jobs/                          # actual SLURM scripts run on Yale Misha
+├── jobs/                          # my SLURM scripts, run on Yale's Misha cluster
 ├── figures/                       # paper figures (regen instructions in figures/README.md)
-├── calibration_plots/paper/       # final per-particle uncertainty PDFs (Figure 2 source)
-├── combined_results_plots/        # Figure 3 source (edges + MSE per step)
-├── Sand/
-│   ├── dataset/metadata.json      # full dataset is downloaded; see "Data" below
-│   └── models/                    # rollout summary .npz files (numbers behind Table 4)
-└── WaterDrop/
+├── calibration_plots/paper/       # Figure 2 in the paper
+├── combined_results_plots/        # Figure 3 in the paper
+├── Sand/                          # Dataset 1
+│   ├── dataset/metadata.json      
+│   └── models/                   
+└── WaterDrop/                     # Dataset 2
     ├── dataset/metadata.json
     └── models/
 ```
@@ -55,18 +52,15 @@ Tested on Python 3.10 with CUDA 11.8.
 git clone https://github.com/<your-username>/AdaptiveGNS.git
 cd AdaptiveGNS
 
-# Recommended: create an isolated environment.
 python3 -m venv .venv
 source .venv/bin/activate
 
-# torch + torch_geometric extensions need a matching wheel index.
 # Replace cu118 with your CUDA version (or cpu).
 pip install torch --index-url https://download.pytorch.org/whl/cu118
 pip install torch_geometric
 pip install torch_scatter torch_sparse torch_cluster \
     -f https://data.pyg.org/whl/torch-2.4.0+cu118.html
 
-# Remaining requirements.
 pip install -r adaptive-gns/requirements.txt
 
 # Make the package importable.
@@ -81,10 +75,9 @@ pip install tensorflow-cpu
 
 ## Data
 
-Datasets are not bundled in this repo (the full files exceed GitHub's per-file
-limit). Both are publicly hosted.
+Datasets are not bundled in this repo, as they are rather large. Both are publicly hosted.
 
-### Sand (Taichi-MPM, from Kumar et al. 2022)
+### Sand
 
 DesignSafe-CI DOI: [10.17603/ds2-0phb-dg64](https://doi.org/10.17603/ds2-0phb-dg64).
 Place the resulting files at `Sand/dataset/`:
@@ -97,10 +90,10 @@ Sand/dataset/
 └── test.npz
 ```
 
-### WaterDrop (SPH, from DeepMind GNS)
+### WaterDrop
 
-Available from the original GNS release. The files ship as TFRecords; convert
-to `.npz` once with:
+Found at the original GNS release. Dataset consists of TFRecords; convert
+to `.npz` with:
 
 ```bash
 python adaptive-gns/utils/convert_tfrecord_to_npz.py \
