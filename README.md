@@ -115,8 +115,8 @@ WaterDrop/dataset/
 
 ## Reproducing the paper
 
-All commands below assume `PYTHONPATH=$PWD/adaptive-gns`. Training each model
-takes ~6 hours on a single A100; full evaluation per dataset is ~30 min.
+Make sure to have `PYTHONPATH=$PWD/adaptive-gns`. Training each model
+takes ~6 hours on an Nvidia A100 GPU; evaluation per dataset is ~30 min.
 
 ### 1. Exploratory data analysis (Section 2)
 
@@ -133,7 +133,7 @@ This reproduces the numbers in Table 1.
 
 ### 2. Training
 
-The actual SLURM submissions are in `jobs/`. To run locally without a
+The actual SLURM submissions are in `jobs/`. Paths are hardcoded, so make sure to replace mine with your own! To run on native without a
 scheduler:
 
 ```bash
@@ -221,18 +221,6 @@ Writes per-decile expected calibration error and the per-particle
 The rollout `.npz` files committed under `Sand/models/` and `WaterDrop/models/`
 are sufficient input for Figure 3 without retraining.
 
-## What this repository does *not* contain
-
-To keep the repo within GitHub's size budget, the following are deliberately
-absent and must be obtained as documented above:
-
-- Raw datasets (`Sand/dataset/{train,valid,test}.npz`,
-`WaterDrop/dataset/{train,valid,test}.tfrecord` or `.npz`).
-- Trained model checkpoints (`*.pt`). Re-train via the commands above, or
-contact the author for the Misha-cluster snapshots.
-- The unmodified upstream [geoelements/gns](https://github.com/geoelements/gns)
-used to train the MSE baselines (clone separately).
-
 ## Citation
 
 If you build on this work, please cite both this project and the upstream GNS:
@@ -257,14 +245,13 @@ If you build on this work, please cite both this project and the upstream GNS:
 ## Acknowledgments
 
 `adaptive-gns/` is a fork of [geoelements/gns](https://github.com/geoelements/gns)
-(MIT-licensed; see `[adaptive-gns/license.md](adaptive-gns/license.md)` and
-`[adaptive-gns/AUTHORS.md](adaptive-gns/AUTHORS.md)`). The non-trivial
+(MIT-licensed). The non-trivial
 modifications relative to upstream are the variance head in
-`[adaptive-gns/gns/graph_network.py](adaptive-gns/gns/graph_network.py)`,
-the heteroscedastic-NLL training loop and adaptive rollout in
-`[adaptive-gns/gns/learned_simulator.py](adaptive-gns/gns/learned_simulator.py)`
-and `[adaptive-gns/gns/train.py](adaptive-gns/gns/train.py)`, and everything
-under `[adaptive-gns/scripts/](adaptive-gns/scripts/)`.
+`adaptive-gns/gns/graph_network.py`,
+the adaptive mechanism in 
+`adaptive-gns/gns/learned_simulator.py`
+and `(adaptive-gns/gns/train.py`, and everything
+under `adaptive-gns/scripts/`.
 
 Compute provided by the [Yale Center for Research Computing](https://research.computing.yale.edu/)
 on the Misha cluster.
