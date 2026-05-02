@@ -12,6 +12,8 @@ so the cost is one forward pass per step. AdaptGNS achieves a strict
 Pareto improvement on WaterDrop (20% fewer edges than fixed `k = 5`, lower
 MSE@200) and a modest gain on Sand.
 
+Upstream: [geoelements/gns](https://github.com/geoelements/gns).
+
 ## Repository layout
 
 ```
