@@ -223,27 +223,6 @@ Writes per-decile expected calibration error and the per-particle
 The rollout `.npz` files committed under `Sand/models/` and `WaterDrop/models/`
 are sufficient input for Figure 3 without retraining.
 
-## Citation
-
-If you build on this work, please cite both this project and the upstream GNS:
-
-```bibtex
-@misc{zhou2026adaptgns,
-  title  = {Adaptive Interaction Graphs for Particle Simulation},
-  author = {Zhou, Aiden},
-  year   = {2026},
-  note   = {CPSC 4830, Yale University},
-}
-
-@inproceedings{sanchezgonzalez2020learning,
-  title     = {Learning to Simulate Complex Physics with Graph Networks},
-  author    = {Sanchez-Gonzalez, Alvaro and Godwin, Jonathan and Pfaff, Tobias
-               and Ying, Rex and Leskovec, Jure and Battaglia, Peter},
-  booktitle = {ICML},
-  year      = {2020},
-}
-```
-
 ## Acknowledgments
 
 `adaptive-gns/` is a fork of [geoelements/gns](https://github.com/geoelements/gns)
@@ -254,6 +233,3 @@ the adaptive mechanism in
 `adaptive-gns/gns/learned_simulator.py`
 and `(adaptive-gns/gns/train.py`, and everything
 under `adaptive-gns/scripts/`.
-
-Compute provided by the [Yale Center for Research Computing](https://research.computing.yale.edu/)
-on the Misha cluster.
