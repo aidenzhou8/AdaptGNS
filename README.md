@@ -18,7 +18,6 @@ Upstream: [geoelements/gns](https://github.com/geoelements/gns).
 
 ```
 AdaptiveGNS/
-├── CPSC_4830_Paper.pdf            # project report
 ├── README.md                      # this file
 ├── .gitignore
 ├── adaptive-gns/                  # fork of geoelements/gns with VarianceHead + adaptive loop
