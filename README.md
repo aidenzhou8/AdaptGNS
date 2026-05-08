@@ -1,6 +1,6 @@
 # AdaptGNS: Adaptive Interaction Graphs for Particle Simulation
 
-Code release for *Adaptive Interaction Graphs for Particle Simulation*. See `CPSC_4830_Paper.pdf` for the project report.
+Code release for *Adaptive Interaction Graphs for Particle Simulation*.
 
 A standard GNS ([Sanchez-Gonzalez et al., 2020](https://arxiv.org/abs/2002.09405))
 is augmented with a per-particle variance head trained jointly under a
